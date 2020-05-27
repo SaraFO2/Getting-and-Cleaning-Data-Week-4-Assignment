@@ -1,14 +1,14 @@
 ## read train  data
-x_train <- read.table("../train/X_train.txt", header = FALSE, sep = "", dec = ".")
-y_train <- read.table("../train/Y_train.txt", header = FALSE, sep = "", dec = ".")
-subject_train <- read.table("../train/subject_train.txt", header = FALSE, sep = "", dec = ".")
+x_train <- read.table("./train/X_train.txt", header = FALSE, sep = "", dec = ".")
+y_train <- read.table("./train/Y_train.txt", header = FALSE, sep = "", dec = ".")
+subject_train <- read.table("./train/subject_train.txt", header = FALSE, sep = "", dec = ".")
 
 ##read test data
-x_test <- read.table("../test/X_test.txt", header = FALSE, sep = "", dec = ".")
-y_test <- read.table("../test/Y_test.txt", header = FALSE, sep = "", dec = ".")
-subject_test <- read.table("../test/subject_test.txt", header = FALSE, sep = "", dec = ".")
+x_test <- read.table("./test/X_test.txt", header = FALSE, sep = "", dec = ".")
+y_test <- read.table("./test/Y_test.txt", header = FALSE, sep = "", dec = ".")
+subject_test <- read.table("./test/subject_test.txt", header = FALSE, sep = "", dec = ".")
 ## read activity labels
-activity_labels <- read.table("./UCI HAR Dataset/activity_labels.txt")
+activity_labels <- read.table("../UCI HAR Dataset/activity_labels.txt")
 ##read data description
 features <- read.table("../UCI HAR Dataset/features.txt", header = FALSE, sep = "")
 ##1. Merges the training and the test sets to create one data set.
@@ -31,5 +31,5 @@ total <- cbind(activities,X_total_mean_std)
 colnames(subject_total) <- "subject"
 total <- cbind(activities, subject_total, X_total_mean_std)
 library(dplyr)
-total_mean <- total %>% group_by(activities, subject_total) %>% summarise_each(funs(mean))
+total_mean <- total %>% group_by(activities, subject) %>% summarise_each(funs(mean))
 write.table(total_mean, file = "../UCI HAR Dataset/tidydata.txt", row.names = FALSE, col.names = TRUE)
